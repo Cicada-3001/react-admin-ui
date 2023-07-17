@@ -1,40 +1,23 @@
-@import "../../styles/variables.scss";
-@import "../../styles/responsive.scss";
+import { Link } from "react-router-dom";
+import "./Menu.scss";
+import { menu } from "../../data";
 
-.menu {
-  .item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
+const Menu = () => {
+  return (
+    <div className="menu">
+      {menu.map((item) => (
+        <div className="item" key={item.id}>
+          <span className="title">{item.title}</span>
+          {item.listItems.map((listItem) => (
+            <Link to={listItem.url} className="listItem" key={listItem.id}>
+              <img src={listItem.icon} alt="" />
+              <span className="listItemTitle">{listItem.title}</span>
+            </Link>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
 
-    .title {
-      font-size: 12px;
-      font-weight: 200;
-      color: $soft-color;
-      text-transform: uppercase;
-
-      @include lg{
-        display: none;
-      }
-    }
-
-    .listItem {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
-      border-radius: 5px;
-
-      &:hover {
-        background-color: $soft-bg;
-      }
-
-      .listItemTitle{
-        @include lg{
-          display: none;
-        }
-      }
-    }
-  }
-}
+export default Menu;
